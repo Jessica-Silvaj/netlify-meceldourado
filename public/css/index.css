@@ -87,7 +87,7 @@ b {
     flex-direction: column;
     width: 30%; /* Ajuste o tamanho do card aqui */
     height: auto; /* Permita que o card ajuste a altura conforme necessário */
-    background-color: var(--cor-principal);
+    background-color: rgba(240, 247, 249, 0.8); /* Um creme suave com 80% de opacidade */
     border-radius: 13px;
     z-index: 4;
     border: 3px solid var(--cor-secundaria);
