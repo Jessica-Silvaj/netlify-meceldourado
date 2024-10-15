@@ -1,0 +1,137 @@
+@font-face {
+    font-family: 'PoppinsMedium';
+    src: url('../fonts/Poppins-Medium.otf');
+}
+
+@font-face {
+    font-family: 'PoppinsRegular';
+    src: url('../fonts/Poppins-Regular.otf');
+}
+
+:root {
+    --cor-principal: #f0f7f9; /* Um creme suave para harmonizar com o fundo */
+    --cor-secundaria: #e89dbd; /* Rosa suave ligeiramente mais claro */
+    --cor-terciaria: #1f636c; /* Verde-azulado ajustado para contraste */
+    --cor-fundo: #c2cbd2; /* Cinza claro mais neutro */
+    --cor-texto: #4a4a4a; /* Um tom de cinza escuro confortável */
+}
+
+html, body {
+    background-color: var(--cor-fundo);
+    font-family: 'PoppinsRegular', 'Rubik', sans-serif;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    position: relative; /* Necessário para o posicionamento absoluto do ::before */
+    animation: gradientAnimation 10s ease infinite; /* Animação do gradiente */
+    background-size: 400% 400%; /* Para permitir a animação suave */
+    overflow: hidden; /* Para evitar barras de rolagem indesejadas */
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../images/tools.png'); /* Adicione sua imagem de ferramentas aqui */
+    background-size: 200px 200px; /* Ajuste o tamanho do padrão de ferramentas */
+    opacity: 0.2; /* Transparência da imagem de fundo */
+    animation: moverFerramentas 30s linear infinite; /* Animação do fundo */
+    z-index: 1; /* Certifique-se de que fique atrás do conteúdo principal */
+}
+
+@keyframes moverFerramentas {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 500px 500px; /* Animação de deslocamento diagonal */
+    }
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-color: #f0f7f9; /* cor-principal */
+    }
+    25% {
+        background-color: #e89dbd; /* cor-secundaria */
+    }
+    50% {
+        background-color: #1f636c; /* cor-terciaria */
+    }
+    75% {
+        background-color: #c2cbd2; /* cor-fundo */
+    }
+    100% {
+        background-color: #f0f7f9; /* volta para cor-principal */
+    }
+}
+
+b {
+    font-family: 'PoppinsMedium', 'Rubik', sans-serif;
+}
+
+.background {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+}  
+
+.container-background {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 35%;
+    height: 90vh;
+    background-color: var(--cor-principal);
+    border-radius: 13px;
+    z-index: 4;
+    border: 3px solid var(--cor-secundaria); /* Adiciona borda com a cor secundária */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), /* Sombra mais intensa e profunda */
+                0 16px 32px rgba(0, 0, 0, 0.2); /* Adiciona um efeito "4D" */
+    padding: 20px;
+}
+
+.logoMec {
+    width: 150px; /* Aumenta o tamanho */
+    height: 150px;
+    margin-bottom: 20px;
+    background-image: url('../images/logoMec.jpg');
+    background-repeat: no-repeat;
+    background-size: cover; /* Garante que a imagem preencha o espaço */
+    border-radius: 50%;
+    border: 4px solid var(--cor-secundaria); /* Adiciona borda para destaque */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para dar mais destaque */
+}
+
+.container-text {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--cor-texto);
+    margin-bottom: 10px;
+}
+
+.container-inputbox {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    height: 50px;
+}
+
+@media (max-width: 768px) {
+    .container-background {
+        width: 80%;
+        height: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .container-background {
+        width: 100%;
+    }
+}
