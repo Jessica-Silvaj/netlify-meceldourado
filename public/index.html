@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Site Node.js</title>
+</head>
+<body>
+    <h1>Bem-vindo ao Meu Site!</h1>
+    <p>Esta é uma aplicação simples usando Node.js e Netlify.</p>
+    <button id="hello-button">Chamar Função</button>
+    <p id="response"></p>
+    <script>
+        document.getElementById('hello-button').addEventListener('click', async () => {
+            const response = await fetch('/.netlify/functions/hello');
+            const data = await response.json();
+            document.getElementById('response').textContent = data.message;
+        });
+    </script>
+</body>
+</html>
