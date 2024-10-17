@@ -65,8 +65,10 @@ exports.handler = async (req, res) => {
     const cleanCharacterName = sanitize(nomePersonagem);
     const cleanDiscordName = sanitize(nomeDiscord);
 
+    let client = null; 
+    
     try {
-        const client = await connectDB(); // Conecta ao banco de dados
+        client = await connectDB(); // Conecta ao banco de dados
 
         // Verificar se o usuário já existe no sistema
       const usuarioExistente = await client.query('SELECT * FROM usuario WHERE passaport = $1 OR nome_discord = $2', [idPersonagemNumber, cleanDiscordName]);
@@ -109,6 +111,8 @@ exports.handler = async (req, res) => {
         if (client) {
             client.release(); // Libera a conexão de volta ao pool
             console.log('conexão ao banco de dados liberada para o pool');
+        } else {
+            console.log('Nenhuma conexão a ser liberada.');
         }
     }
 };
