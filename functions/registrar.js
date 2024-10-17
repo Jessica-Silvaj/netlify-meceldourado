@@ -4,8 +4,8 @@ const bcrypt = require('bcrypt');
 exports.handler = async (req, res) => {
     
     const errorResponse = (message) => res.status(400).json({ message, type: 'danger' });
-
-    if (req.method !== 'POST') {
+    console.log('Request Object:', req);
+    if (!req.route || !req.route.methods || req.route.methods.post !== true) {
         return errorResponse('Dados inválidos.');
     }
 
