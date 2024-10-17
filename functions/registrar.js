@@ -1,5 +1,6 @@
-const { connectDB,client} = require('../bd/conexao');
+const { connectDB} = require('../bd/conexao');
 const bcrypt = require('bcrypt');
+const { notifyNewUser } = require('./discord.bot');
 
 exports.handler = async (req, res) => {
 
@@ -69,7 +70,7 @@ exports.handler = async (req, res) => {
     
     try {
         client = await connectDB(); // Conecta ao banco de dados
-
+        await client.query('BEGIN');
         // Verificar se o usuário já existe no sistema
       const usuarioExistente = await client.query('SELECT * FROM usuario WHERE passaport = $1 OR nome_discord = $2', [idPersonagemNumber, cleanDiscordName]);
 
@@ -89,16 +90,25 @@ exports.handler = async (req, res) => {
             [idPersonagemNumber, cleanCharacterName, cleanDiscordName, senhaCriptografada]
         );
 
+         // Notificar no Discord após registrar o usuário
+         notifyNewUser(cleanDiscordName, idPersonagemNumber, cleanCharacterName);
+
+        await client.query('COMMIT');
+
         if (isExpress) {
-            return res.status(201).json({ message: 'Usuário registrado com sucesso!', type: 'success' });
+            return res.status(201).json({ message: 'Cadastro realizado com sucesso! Por favor, aguarde a liberação de um dos administradores para acessar o sistema.', type: 'success' });
         } else {
             return {
                 statusCode: 201,
-                body: JSON.stringify({ message: 'Usuário registrado com sucesso!', type: 'success' }),
+                body: JSON.stringify({ message: 'Cadastro realizado com sucesso! Por favor, aguarde a liberação de um dos administradores para acessar o sistema.', type: 'success' }),
             };
         }
     } catch (error) {
         console.error('Erro ao processar a requisição:', error);
+
+        if (client) {
+            await client.query('ROLLBACK');
+        }
         if (isExpress) {
             return res.status(500).json({ message: 'Erro ao cadastrar usuário.', type: 'danger' });
         } else {
