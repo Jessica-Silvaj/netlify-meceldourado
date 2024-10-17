@@ -1,6 +1,6 @@
 const { connectDB} = require('../bd/conexao');
 const bcrypt = require('bcrypt');
-const { notifyNewUser } = require('./discord.bot');
+const { notifyNewUser, client } = require('./discord'); // Importar o cliente
 
 exports.handler = async (req, res) => {
 
@@ -91,7 +91,11 @@ exports.handler = async (req, res) => {
         );
 
          // Notificar no Discord após registrar o usuário
-         notifyNewUser(cleanDiscordName, idPersonagemNumber, cleanCharacterName);
+         if (client.user) {
+            notifyNewUser(cleanDiscordName, idPersonagemNumber, cleanCharacterName);
+        } else {
+            console.error('Bot do Discord não está online.');
+        }
 
         await client.query('COMMIT');
 

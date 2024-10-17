@@ -1,7 +1,6 @@
 const express = require('express');
 const path = require('path');
 const { handler } = require('./functions/registrar')
-const { handler: discordBotHandler } = require('./functions/discord.bot');
 
 
 const app = express();
