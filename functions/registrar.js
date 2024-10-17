@@ -4,7 +4,9 @@ const bcrypt = require('bcrypt');
 exports.handler = async (req, res) => {
     
     const errorResponse = (message) => res.status(400).json({ message, type: 'danger' });
+   
     console.log('Request Object:', req);
+    
     if (!req.route || !req.route.methods || req.route.methods.post !== true) {
         return errorResponse('Dados inválidos.');
     }
@@ -13,6 +15,9 @@ exports.handler = async (req, res) => {
     const idPersonagem = req.body.characterId;
     const nomeDiscord = req.body.discordName;
     const senha = req.body.password;
+
+    // Adicione logs para depuração
+    console.log('Body da requisição:', req.body);
 
     if (!nomePersonagem || !idPersonagem || !nomeDiscord || !senha) {
         return errorResponse('Todos os campos são obrigatórios.');
