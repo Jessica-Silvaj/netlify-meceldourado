@@ -1,11 +1,11 @@
-const { connectDB, disconnectDB, client, releaseClient } = require('../bd/conexao');
+const { connectDB,client} = require('../bd/conexao');
 const bcrypt = require('bcrypt');
 
 exports.handler = async (req, res) => {
     
     const errorResponse = (message) => res.status(400).json({ message, type: 'danger' });
 
-    if (req.route.methods.post !== true) {
+    if (req.method !== 'POST') {
         return errorResponse('Dados inválidos.');
     }
 
