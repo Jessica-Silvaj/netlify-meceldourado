@@ -133,7 +133,27 @@ b {
     font-size: 16px;
     font-weight: 500;
     color: var(--cor-texto);
+    font-family: 'PoppinsMedium', 'Rubik', sans-serif;
+
 }
+
+.background-login {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 100vh;
+    margin-right: 15px;
+  }
+
+  .backgroundLoginWeb2 {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    position: absolute;
+    top: 10px;
+    width: 100%;
+    height: 80px;
+  }
 
 .inputLogin{
   width: 500px;
@@ -150,6 +170,22 @@ b {
   color: var(--cor-texto);
   transition: border-color 0.3s ease;
 }
+
+.inputLoginModal{
+    width: 460px;
+    height: 45px;
+    padding-left: 10px;
+    border-radius: 10px;
+    border: 2px solid var(--cor-secundaria);
+    background-color: var(--cor-fundo);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--cor-texto);
+    transition: border-color 0.3s ease;
+  }
 .buttonLoginWeb {
     background-color: var(--cor-terciaria);
     border: none;
@@ -162,15 +198,88 @@ b {
     font-family: 'PoppinsMedium', 'Rubik', sans-serif;
 }
 
-/* Responsividade */
+.buttonLogin {
+    background-color: var(--cor-terciaria);
+    border: none;
+    border-radius: 7px;
+    color: var(--cor-principal);
+    margin-top: 10px;
+    cursor: pointer;
+    height: 50px;
+    width: 200px;
+    font-family: 'PoppinsMedium', 'Rubik', sans-serif;
+}
+
 @media (max-width: 768px) {
-    .container-background {
+    .inputLogin {
+        width: 100%; /* Faz com que o campo ocupe 100% da largura do container */
+        height: 40px; /* Ajusta a altura para dispositivos menores */
+        padding-left: 8px; /* Ajusta o padding para melhor aparência */
+        font-size: 14px; /* Reduz o tamanho da fonte se necessário */
+      }
+
+    .buttonLoginWeb {
         width: 80%;
+        height: 45px; /* Ajusta altura */
+    }
+
+    .container-background {
+        width: 90%; /* Mantém espaçamento nas laterais */
+    }
+
+    .container-buttons {
+        margin-left: 0; /* Remove margens para centralização */
+    }
+
+    .container-text {
+        font-size: 16px; /* Reduz o tamanho da fonte */
+    }
+
+    .textInput {
+        font-size: 14px;
+    }
+
+    body::before {
+        background-size: 150px 150px; /* Reduz o tamanho da imagem de fundo */
     }
 }
 
 @media (max-width: 480px) {
-    .container-background {
+    .inputLogin {
+        width: 100%; /* Faz com que o campo ocupe 100% da largura do container */
+        height: 40px; /* Ajusta a altura para dispositivos menores */
+        padding-left: 8px; /* Ajusta o padding para melhor aparência */
+        font-size: 14px; /* Reduz o tamanho da fonte se necessário */
+      }
+
+    .buttonLoginWeb {
         width: 100%;
+        height: 45px;
+    }
+
+    .container-background {
+        width: 100%; /* Preenche toda a largura da tela */
+        padding: 10px; /* Reduz padding para melhor ajuste em telas pequenas */
+    }
+
+    .container-text {
+        font-size: 14px;
+    }
+
+    .textInput {
+        font-size: 12px;
+    }
+
+    body::before {
+        background-image: none; /* Remove o background para telas menores */
     }
 }
+
+@media (max-width: 600px) {
+    .inputLogin {
+      width: 100%; /* Faz com que o campo ocupe 100% da largura do container */
+      height: 40px; /* Ajusta a altura para dispositivos menores */
+      padding-left: 8px; /* Ajusta o padding para melhor aparência */
+      font-size: 14px; /* Reduz o tamanho da fonte se necessário */
+    }
+  }
