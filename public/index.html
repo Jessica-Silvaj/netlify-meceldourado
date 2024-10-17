@@ -51,7 +51,7 @@
         </div>
     </div>
     </div>
-    <button id="hello-button">Chamar Função</button>
+
     <!-- Modal de Registro -->
     <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
         <div class="modal-dialog ">
@@ -61,7 +61,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form autocomplete="off" id="registroForm" method="POST">
+                    <form autocomplete="off" id="registroForm" method="POST"  action="../functions/registrar.js">
                         <div class="mb-3">
                             <label for="registerUsername" class="textInput"><b>Nome do Personagem:</b></label>
                             <input type="text" class="inputLoginModal" id="name" name="name" required>
@@ -73,9 +73,11 @@
                         <div class="mb-3">
                             <label for="registerUsername" class="textInput"><b>Nome do Discord:</b></label>
                             <input type="text" class="inputLoginModal" id="discordName" name="discordName" required>
-                        </div <div class="mb-3">
-                        <label for="registerPassword" class="textInput"><b>Senha:</b></label>
-                        <input type="password" class="inputLoginModal" id="passwordModal" name="passwordModal" required>
+                        </div> 
+                        <div class="mb-3">
+                            <label for="registerPassword" class="textInput"><b>Senha:</b></label>
+                            <input type="password" class="inputLoginModal" id="passwordModal" name="passwordModal" required>
+                        </div>
                 </div>
                 <div class="container-buttons">
                     <button type="submit" class="buttonLogin">Registrar</button>
@@ -86,7 +88,7 @@
     </div>
     </div>
     <script>
-        document.getElementById('registroForm').addEventListener('submit', async (event) => {
+       document.getElementById('registroForm').addEventListener('submit', async (event) => {
             event.preventDefault(); // Impede a submissão padrão do formulário
 
             const formData = new FormData(event.target);
@@ -105,8 +107,6 @@
                     },
                     body: JSON.stringify(data),
                 });
-
-                // console.log(response);
 
                 if (!response.ok) {
                     const errorData = await response.json();
@@ -135,17 +135,16 @@
                 alertContainer.innerHTML = `
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         ${error}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 `;
             } finally {
                 // Fecha o modal independentemente de sucesso ou erro
-                 const modal = bootstrap.Modal.getInstance(document.getElementById('registerModal'));
+                const modal = bootstrap.Modal.getInstance(document.getElementById('registerModal'));
                 if (modal) {
                     modal.hide();
                 }
             }
-
         });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

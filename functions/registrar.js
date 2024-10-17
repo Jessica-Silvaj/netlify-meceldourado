@@ -2,23 +2,35 @@ const { connectDB,client} = require('../bd/conexao');
 const bcrypt = require('bcrypt');
 
 exports.handler = async (req, res) => {
+
+    const isExpress = res && typeof res.status === 'function';
     
-    const errorResponse = (message) => res.status(400).json({ message, type: 'danger' });
-   
-    console.log('Request Object:', req);
-    
-    if (!req.route || !req.route.methods || req.route.methods.post !== true) {
-        return errorResponse('Dados inválidos.');
+    const errorResponse = (message) => {
+        if (isExpress) {
+            return res.status(400).json({ message, type: 'danger' });
+        }
+        return {
+            statusCode: 400,
+            body: JSON.stringify({ message, type: 'danger' }),
+        };
+    };
+
+    if (isExpress) {
+        if (!req.route || !req.route.methods || req.route.methods.post !== true) {
+            return errorResponse('Método não permitido.');
+        }
+    } else {
+        if (req.httpMethod !== 'POST') {
+            return errorResponse('Método não permitido.');
+        }
     }
+    
+    const nomePersonagem = isExpress ? req.body.characterName : JSON.parse(req.body).characterName;
+    const idPersonagem = isExpress ? req.body.characterId : JSON.parse(req.body).characterId;
+    const nomeDiscord = isExpress ? req.body.discordName : JSON.parse(req.body).discordName;
+    const senha = isExpress ? req.body.password : JSON.parse(req.body).password;
 
-    const nomePersonagem = req.body.characterName;
-    const idPersonagem = req.body.characterId;
-    const nomeDiscord = req.body.discordName;
-    const senha = req.body.password;
-
-    // Adicione logs para depuração
-    console.log('Body da requisição:', req.body);
-
+   
     if (!nomePersonagem || !idPersonagem || !nomeDiscord || !senha) {
         return errorResponse('Todos os campos são obrigatórios.');
     }
@@ -75,10 +87,24 @@ exports.handler = async (req, res) => {
             [idPersonagemNumber, cleanCharacterName, cleanDiscordName, senhaCriptografada]
         );
 
-        return res.status(201).json({ message: 'Usuário registrado com sucesso!', type: 'success' });
+        if (isExpress) {
+            return res.status(201).json({ message: 'Usuário registrado com sucesso!', type: 'success' });
+        } else {
+            return {
+                statusCode: 201,
+                body: JSON.stringify({ message: 'Usuário registrado com sucesso!', type: 'success' }),
+            };
+        }
     } catch (error) {
         console.error('Erro ao processar a requisição:', error);
-        return res.status(500).json({ message: 'Erro ao cadastrar usuário.', type: 'danger' });
+        if (isExpress) {
+            return res.status(500).json({ message: 'Erro ao cadastrar usuário.', type: 'danger' });
+        } else {
+            return {
+                statusCode: 500,
+                body: JSON.stringify({ message: 'Erro ao cadastrar usuário.', type: 'danger' }),
+            };
+        }
     } finally {
         if (client) {
             client.release(); // Libera a conexão de volta ao pool

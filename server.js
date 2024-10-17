@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const { handler } = require('./functions/registrar')
+
 const app = express();
 const port = process.env.PORT || 3000;
 
