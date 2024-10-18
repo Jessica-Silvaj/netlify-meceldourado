@@ -1,5 +1,5 @@
 const { connectDB} = require('../bd/conexao');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const { notifyNewUser, client } = require('./discord'); // Importar o cliente
 
 exports.handler = async (req, res) => {
